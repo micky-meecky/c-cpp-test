@@ -2,14 +2,18 @@
 using namespace std;
 void test01(void);
 void test02(void);
+void test03(void);
+void set(int i, int* s);
+
 
 int main(void)
 {
 	//test01();/*c++中 new int [0] 与 new int [1]的区别*/
-	test02();
+	//test02();
+	test03();
 
 
-	printf("这是git测试\n");
+	//printf("这是git测试\n");
 	return 0;
 }
 
@@ -71,7 +75,52 @@ void test02(void)
 
 }
 
+void test03(void)
+{
+	/**/
+	int* s = new int[3];
+	
+	printf("in test(), &s = 0x%p\n", s);
+	set(10, s);
+	printf("msize = %zu\n", _msize(s));
+	printf("in show(), &s = 0x%p\n", s);
+}
 
+void set(int i, int* s)
+{
+	printf("in set() new 前, &s = 0x%p\n", s);
+	if (s != NULL)
+	{
+		delete[] s;
+		//s = NULL;
+	}
+
+	int* l = new int[20];
+	printf("l的地址= 0x%p\n", l);
+
+	s = new int[i];
+	printf("in set() new 后, &s = 0x%p\n", s);
+	//delete[] l;
+	return;
+
+	/*
+		//重新开辟空间，防止越界
+	if (l != NULL)
+	{
+		delete[] l;
+		l = NULL;
+	}
+
+	int* tmp = new int[i];
+
+	for (int j = 0; j < i; j++)
+	{
+		tmp[j] = i;
+	}
+	return tmp;
+	*/
+
+}
 
 
 
